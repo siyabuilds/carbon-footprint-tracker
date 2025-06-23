@@ -70,3 +70,29 @@ body {
     text-align: center;
   }
 }
+
+.swal2-select {
+  display: block;
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 10px 12px;
+  font-size: 1rem;
+  background-color: #f0fdf4;
+  color: #1b4332;
+  border: 1px solid #95d5b2;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.swal2-select:focus {
+  border-color: #40916c;
+  box-shadow: 0 0 5px rgba(64, 145, 108, 0.5);
+}
+
+.swal2-select:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
