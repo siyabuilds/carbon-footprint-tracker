@@ -1,96 +1,111 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+html,
 body {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: quicksand, sans-serif;
+}
+
+.app-header {
+  background-color: #f0f4f3;
+  padding: 1.5rem 2rem;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e0e0e0;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.header-content h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #2e7d32;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.subtitle {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.25rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
+#add-activity-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: background-color 0.2s ease-in-out;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+#add-activity-btn:hover {
+  background-color: #388e3c;
+}
+
+.app-header i {
+  margin-right: 0.4rem;
+  color: #2e7d32;
+}
+
+#add-activity-btn i {
+  color: white;
+  margin-right: 0.4rem;
+}
+
+#add-activity-btn:hover i {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
-  a:hover {
-    color: #747bff;
+
+  #add-activity-btn {
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
   }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+.swal2-select {
+  display: block;
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 10px 12px;
+  font-size: 1rem;
+  background-color: #f0fdf4;
+  color: #1b4332;
+  border: 1px solid #95d5b2;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.swal2-select:focus {
+  border-color: #40916c;
+  box-shadow: 0 0 5px rgba(64, 145, 108, 0.5);
+}
+
+.swal2-select:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.swal-confirm-btn {
+  background-color: #2d6a4f;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.swal-cancel-btn {
+  border-radius: 8px;
+  padding: 10px 20px;
 }

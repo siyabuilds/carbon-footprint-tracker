@@ -1,13 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/5708525d29.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" type="image/svg+xml" href="/cropped_circle_image.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Carbon Footprint Tracker</title>
+    <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <header class="app-header">
+      <div class="header-content">
+        <h1><i class="fa-solid fa-leaf"></i> Footprint Logger</h1>
+        <p class="subtitle">
+          Track your daily carbon emissions and reduce your impact.
+        </p>
+      </div>
+      <button id="add-activity-btn">
+        <i class="fa-solid fa-circle-plus"></i> Add Activity
+      </button>
+    </header>
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>
