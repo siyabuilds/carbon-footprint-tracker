@@ -96,3 +96,16 @@ body {
   color: #6c757d;
   cursor: not-allowed;
 }
+
+.swal-confirm-btn {
+  background-color: #2d6a4f;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.swal-cancel-btn {
+  border-radius: 8px;
+  padding: 10px 20px;
+}
