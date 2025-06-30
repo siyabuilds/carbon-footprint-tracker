@@ -29,6 +29,38 @@
         <i class="fa-solid fa-circle-plus"></i> Add Activity
       </button>
     </header>
+
+    <main class="main-content">
+      <div class="dashboard">
+        <div class="summary-section">
+          <div id="total-emissions">
+            <div class="total-emissions">
+              <i class="fa-solid fa-chart-line"></i>
+              <span class="total-label">Total Emissions:</span>
+              <span class="total-value">0.00 kg CO₂</span>
+            </div>
+          </div>
+          <button id="clear-all-btn" class="clear-btn">
+            <i class="fa-solid fa-broom"></i> Clear All Data
+          </button>
+        </div>
+
+        <div id="category-breakdown"></div>
+
+        <div class="activities-section">
+          <h2>Activity Log</h2>
+          <div id="activity-logs">
+            <div class="no-activities">
+              <i class="fa-solid fa-seedling"></i>
+              <p>
+                No activities logged yet. Start tracking your carbon footprint!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
