@@ -9,11 +9,18 @@ import {
   confirmDeleteActivity,
   confirmClearAllActivities,
 } from "./ui";
+import {
+  getCategories,
+  filterLogsByCategory,
+  createFilterComponent,
+} from "./filter";
 
 let activityLogs = loadActivityLogs();
+let selectedCategory = "All";
 
 document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners();
+  setupFilterComponent();
   updateDisplay();
 });
 
@@ -75,9 +82,23 @@ const updateDisplay = () => {
     document.getElementById("total-emissions")
   );
 
-  renderActivityLogs(activityLogs, document.getElementById("activity-logs"));
+  const filteredLogs = filterLogsByCategory(activityLogs, selectedCategory);
+  renderActivityLogs(filteredLogs, document.getElementById("activity-logs"));
   renderCategoryBreakdown(
-    activityLogs,
+    filteredLogs,
     document.getElementById("category-breakdown")
   );
+};
+
+const setupFilterComponent = () => {
+  const activitiesSection = document.querySelector(".activities-section");
+  const activitiesHeading = activitiesSection.querySelector("h2");
+
+  const categories = getCategories();
+  const filterComponent = createFilterComponent(categories, (category) => {
+    selectedCategory = category;
+    updateDisplay();
+  });
+
+  activitiesHeading.insertAdjacentElement("afterend", filterComponent);
 };

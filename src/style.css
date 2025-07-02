@@ -332,6 +332,70 @@ body {
   margin: 0;
 }
 
+/* Filter component */
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.filter-label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+  color: #424242;
+}
+
+.category-filter-select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  font-family: quicksand, sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  min-width: 150px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.category-filter-select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+}
+
+.category-filter-select option {
+  padding: 0.25rem 0;
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  #add-activity-btn {
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .category-filter-select {
+    width: 100%;
+  }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .main-content {
