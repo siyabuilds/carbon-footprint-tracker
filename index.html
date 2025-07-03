@@ -47,6 +47,14 @@
 
         <div id="category-breakdown"></div>
 
+        <div id="visual-summary" class="visual-summary-section">
+          <h3><i class="fa-solid fa-chart-pie"></i> Emissions Breakdown</h3>
+          <div class="chart-container">
+            <canvas id="emissions-chart"></canvas>
+          </div>
+          <div class="chart-legend" id="chart-legend"></div>
+        </div>
+
         <div class="activities-section">
           <h2>Activity Log</h2>
           <div id="activity-logs">
@@ -61,6 +69,7 @@
       </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>

@@ -14,6 +14,7 @@ import {
   filterLogsByCategory,
   createFilterComponent,
 } from "./filter";
+import { renderEmissionsChart } from "./chart.js";
 
 let activityLogs = loadActivityLogs();
 let selectedCategory = "All";
@@ -88,8 +89,22 @@ const updateDisplay = () => {
     filteredLogs,
     document.getElementById("category-breakdown")
   );
+
+  // Toggle visual summary section based on filtered logs
+  const visualSummarySection = document.getElementById("visual-summary");
+  if (filteredLogs.length === 0) {
+    visualSummarySection.style.display = "none";
+  } else {
+    visualSummarySection.style.display = "block";
+    const chartContainer = document.querySelector(".chart-container");
+    const legendContainer = document.getElementById("chart-legend");
+    if (chartContainer && legendContainer) {
+      renderEmissionsChart(filteredLogs, chartContainer, legendContainer);
+    }
+  }
 };
 
+// Setup filter component
 const setupFilterComponent = () => {
   const activitiesSection = document.querySelector(".activities-section");
   const activitiesHeading = activitiesSection.querySelector("h2");
