@@ -45,7 +45,7 @@ For all the **Core Modules** and **Functions** breakdown, please refer to [API_D
 
 1. **Initialization**: Load saved activities from localStorage
 2. **Display**: Render total emissions, category breakdown, and activity list
-3. **User Interaction**: 
+3. **User Interaction**:
    - Add new activities via modal form
    - Delete individual activities
    - Filter activities by category
@@ -56,6 +56,7 @@ For all the **Core Modules** and **Functions** breakdown, please refer to [API_D
 ## 🔧 Development
 
 ### Setup
+
 ```bash
 git clone https://github.com/siyabuilds/carbon-footprint-tracker
 npm install
@@ -72,6 +73,7 @@ npm run dev
 ## 📈 Data Model
 
 Each activity log contains:
+
 ```javascript
 {
   category: "Transport",     // Activity category
@@ -89,7 +91,7 @@ Each activity log contains:
 
 ## 🤝 Contributing
 
-This is a project I am doing under @Umuzi-org, but suggestions and improvements are welcome through issues and pull requests.
+This is a project I am doing under [Umuzi](https://github.com/Umuzi-org), but suggestions and improvements are welcome through issues and pull requests.
 
 ## 📄 License
 
