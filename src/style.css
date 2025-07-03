@@ -210,6 +210,88 @@ body {
   color: #2e7d32;
 }
 
+/* Visual Summary Section */
+.visual-summary-section {
+  background-color: #fafafa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+}
+
+.visual-summary-section h3 {
+  margin: 0 0 1rem 0;
+  color: #2e7d32;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.visual-summary-section i {
+  color: #4caf50;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto 1rem auto;
+  position: relative;
+}
+
+.chart-container canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.chart-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  color: #424242;
+  font-weight: 500;
+}
+
+.legend-value {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.no-data-message {
+  text-align: center;
+  color: #757575;
+  padding: 2rem;
+  font-style: italic;
+}
+
+.no-data-message i {
+  font-size: 2rem;
+  color: #4caf50;
+  margin-bottom: 1rem;
+  display: block;
+}
+
 /* Activities section */
 .activities-section h2 {
   color: #2e7d32;
@@ -426,5 +508,13 @@ body {
 
   .activity-emissions {
     justify-content: space-between;
+  }
+
+  .chart-container {
+    max-width: 300px;
+  }
+
+  .chart-legend {
+    grid-template-columns: 1fr;
   }
 }
