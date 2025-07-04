@@ -1,3 +1,4 @@
+import "./style.css";
 import { activityData } from "./activity-data";
 import { showActivityForm } from "./form";
 import { saveActivityLogs, loadActivityLogs } from "./storage";
