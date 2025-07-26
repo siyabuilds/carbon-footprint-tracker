@@ -27,7 +27,7 @@ body {
   margin-top: 0.25rem;
 }
 
-#add-activity-btn {
+.add-activity-btn {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -38,7 +38,7 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
-#add-activity-btn:hover {
+.add-activity-btn:hover {
   background-color: #388e3c;
 }
 
@@ -47,12 +47,12 @@ body {
   color: #2e7d32;
 }
 
-#add-activity-btn i {
+.add-activity-btn i {
   color: white;
   margin-right: 0.4rem;
 }
 
-#add-activity-btn:hover i {
+.add-activity-btn:hover i {
   transform: scale(1.1);
   transition: transform 0.2s ease;
 }
@@ -64,7 +64,7 @@ body {
     gap: 0.75rem;
   }
 
-  #add-activity-btn {
+  .add-activity-btn {
     align-self: stretch;
     width: 100%;
     text-align: center;
