@@ -1,18 +1,26 @@
 {
   "name": "carbon-footprint-tracker",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": {
+    "name": "Siyabonga Samson Lukhele",
+    "email": "siyabonga.lukhele@umuzi.org",
+    "portfolio": "https://siyabuilds.tech"
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "vite": "^6.3.5"
-  },
   "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "chart.js": "^4.5.0",
     "sweetalert2": "^11.6.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^6.3.5"
   }
 }
