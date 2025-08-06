@@ -2,6 +2,7 @@ import {
   calculateEmissionsByCategory,
   formatEmissions,
 } from "./calculations.js";
+import Chart from "chart.js/auto";
 
 const CATEGORY_COLORS = {
   Transport: "#2196f3",
