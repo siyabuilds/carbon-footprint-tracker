@@ -1,0 +1,36 @@
+{
+  "name": "carbon-footprint-logger-backend",
+  "version": "1.0.0",
+  "description": "This is the backend for the carbon footprint tracker project. ",
+  "homepage": "https://github.com/siyabuilds/carbon-footprint-tracker#readme",
+  "bugs": {
+    "url": "https://github.com/siyabuilds/carbon-footprint-tracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/siyabuilds/carbon-footprint-tracker.git"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Siyabonga Lukhele",
+    "email": "siyabonga.lukhele@umuzi.org",
+    "portfolio": "https://siyabuilds.tech"
+  },
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

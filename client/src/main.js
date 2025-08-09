@@ -1,20 +1,20 @@
 import "./style.css";
-import { activityData } from "./activity-data";
-import { showActivityForm } from "./form";
-import { saveActivityLogs, loadActivityLogs } from "./storage";
-import { calculateTotalEmissions } from "./calculations";
+import { activityData } from "./activity-data.js";
+import { showActivityForm } from "./form.js";
+import { saveActivityLogs, loadActivityLogs } from "./storage.js";
+import { calculateTotalEmissions } from "./calculations.js";
 import {
   renderActivityLogs,
   renderTotalEmissions,
   renderCategoryBreakdown,
   confirmDeleteActivity,
   confirmClearAllActivities,
-} from "./ui";
+} from "./ui.js";
 import {
   getCategories,
   filterLogsByCategory,
   createFilterComponent,
-} from "./filter";
+} from "./filter.js";
 import { renderEmissionsChart } from "./chart.js";
 
 let activityLogs = loadActivityLogs();
