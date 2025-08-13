@@ -1,5 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 
@@ -39,7 +40,26 @@ router.post("/", async (req, res) => {
             return res.status(401).json({ message: "Invalid username/email or password" });
         }
 
-        res.status(200).json({ message: "Login successful", user });
+        // Generate JWT token
+        const JWT_SECRET = process.env.JWT_SECRET || 'carbon-footprint-tracker-secret-to-change-in-production';
+        const token = jwt.sign(
+            { 
+                userId: user.id,
+                email: user.email,
+                username: user.username 
+            },
+            JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        // Remove password from user object before sending response
+        const { password: userPassword, ...userWithoutPassword } = user;
+
+        res.status(200).json({ 
+            message: "Login successful", 
+            token,
+            user: userWithoutPassword
+        });
     } catch (error) {
         console.error("Error logging in user:", error);
         res.status(500).json({ message: "Internal server error" });
