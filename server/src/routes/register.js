@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 
 const router = express.Router();
 
@@ -36,7 +37,7 @@ router.post("/", async (req, res) => {
         }
 
         const newUser = {
-            id: Date.now(),
+            id: crypto.randomBytes(16).toString("hex"),
             username,
             email,
             password: hashedPassword
@@ -46,7 +47,7 @@ router.post("/", async (req, res) => {
         fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
 
         res.status(201).json(
-            { message: "User registered successfully", user: newUser }
+            { message: "User registered successfully", user: { id: newUser.id, username: newUser.username, email: newUser.email } }
         );
     } catch(err) {
         console.error("Error registering user:", err);
