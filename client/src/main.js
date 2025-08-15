@@ -16,17 +16,134 @@ import {
   createFilterComponent,
 } from "./filter.js";
 import { renderEmissionsChart } from "./chart.js";
+import { getCurrentUser, login, register, logout, isLoggedIn } from "./auth.js";
 
 let activityLogs = loadActivityLogs();
 let selectedCategory = "All";
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupEventListeners();
-  setupFilterComponent();
-  updateDisplay();
+  initializeApp();
 });
 
-const setupEventListeners = () => {
+const initializeApp = () => {
+  if (isLoggedIn()) {
+    showMainApp();
+  } else {
+    showAuthScreen();
+  }
+};
+
+const showAuthScreen = () => {
+  document.getElementById("auth-container").style.display = "flex";
+  document.getElementById("app-container").style.display = "none";
+  setupAuthEventListeners();
+};
+
+const showMainApp = () => {
+  document.getElementById("auth-container").style.display = "none";
+  document.getElementById("app-container").style.display = "block";
+  setupAppEventListeners();
+  setupFilterComponent();
+  updateDisplay();
+};
+
+const setupAuthEventListeners = () => {
+  // Tab switching
+  document
+    .getElementById("login-tab")
+    .addEventListener("click", () => switchTab("login"));
+  document
+    .getElementById("register-tab")
+    .addEventListener("click", () => switchTab("register"));
+
+  // Form submissions
+  document.getElementById("login-form").addEventListener("submit", handleLogin);
+  document
+    .getElementById("register-form")
+    .addEventListener("submit", handleRegister);
+};
+
+const switchTab = (tab) => {
+  const loginTab = document.getElementById("login-tab");
+  const registerTab = document.getElementById("register-tab");
+  const loginForm = document.getElementById("login-form");
+  const registerForm = document.getElementById("register-form");
+
+  if (tab === "login") {
+    loginTab.classList.add("active");
+    registerTab.classList.remove("active");
+    loginForm.style.display = "block";
+    registerForm.style.display = "none";
+  } else {
+    registerTab.classList.add("active");
+    loginTab.classList.remove("active");
+    registerForm.style.display = "block";
+    loginForm.style.display = "none";
+  }
+};
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  const identifier = document.getElementById("login-identifier").value;
+  const password = document.getElementById("login-password").value;
+
+  try {
+    await login({ identifier, password });
+    showMainApp();
+  } catch (error) {
+    // Enhanced error display based on error code
+    let errorMessage = "Login failed";
+
+    if (error.code === "USER_NOT_FOUND") {
+      errorMessage = "No account found with this email address";
+    } else if (error.code === "INVALID_PASSWORD") {
+      errorMessage = "Incorrect password. Please try again";
+    } else if (error.message) {
+      errorMessage = error.message;
+    } else if (error.response?.data?.message) {
+      errorMessage = error.response.data.message;
+    }
+
+    alert(errorMessage);
+  }
+};
+
+const handleRegister = async (e) => {
+  e.preventDefault();
+  const username = document.getElementById("register-username").value;
+  const email = document.getElementById("register-email").value;
+  const password = document.getElementById("register-password").value;
+
+  try {
+    await register({ username, email, password });
+    // Auto-login after successful registration using email
+    await login({ identifier: email, password });
+    showMainApp();
+  } catch (error) {
+    // Enhanced error display based on error code
+    let errorMessage = "Registration failed";
+
+    if (error.code === "EMAIL_EXISTS") {
+      errorMessage = "An account with this email already exists";
+    } else if (error.code === "USERNAME_EXISTS") {
+      errorMessage = "This username is already taken";
+    } else if (error.code === "INVALID_EMAIL") {
+      errorMessage = "Please enter a valid email address";
+    } else if (error.code === "WEAK_PASSWORD") {
+      errorMessage = "Password must be at least 6 characters long";
+    } else if (error.code === "MISSING_FIELDS") {
+      errorMessage = "Please fill in all required fields";
+    } else if (error.message) {
+      errorMessage = error.message;
+    } else if (error.response?.data?.message) {
+      errorMessage = error.response.data.message;
+    }
+
+    alert(errorMessage);
+  }
+};
+
+const setupAppEventListeners = () => {
   // Add activity button
   document
     .getElementById("add-activity-btn")
@@ -37,10 +154,18 @@ const setupEventListeners = () => {
     .getElementById("clear-all-btn")
     .addEventListener("click", handleClearAll);
 
+  // Logout button
+  document.getElementById("logout-btn").addEventListener("click", handleLogout);
+
   // Activity log delete buttons (event delegation)
   document
     .getElementById("activity-logs")
     .addEventListener("click", handleDeleteActivity);
+};
+
+const handleLogout = () => {
+  logout();
+  showAuthScreen();
 };
 
 const handleAddActivity = async () => {
