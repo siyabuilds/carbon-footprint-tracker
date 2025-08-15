@@ -22,17 +22,21 @@ router.post("/", async (req, res) => {
     });
 
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: "Invalid username/email or password" });
+      return res.status(404).json({
+        message: "User not found",
+        error: "USER_NOT_FOUND",
+        details: "No account exists with this email or username",
+      });
     }
 
     // Check password using the model's comparePassword method
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res
-        .status(401)
-        .json({ message: "Invalid username/email or password" });
+      return res.status(401).json({
+        message: "Invalid password",
+        error: "INVALID_PASSWORD",
+        details: "The password you entered is incorrect",
+      });
     }
 
     // Generate JWT token
