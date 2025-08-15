@@ -1,58 +1,101 @@
 import express from "express";
-import bcrypt from "bcrypt";
-import fs from "fs";
-import path from "path";
-import crypto from "crypto";
+import User from "../models/User.js";
 
 const router = express.Router();
 
-const usersFile = path.join(process.cwd(), "data", "users.json")
-
 // POST /api/register
 router.post("/", async (req, res) => {
-    const { username, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-    let users = [];
-    if (fs.existsSync(usersFile)) {
-        try {
-            const data = fs.readFileSync(usersFile, 'utf8');
-            if (data.trim()) {
-                users = JSON.parse(data);
-            }
-        } catch (error) {
-            console.log('Error reading users file, starting with empty array:', error.message);
-        }
+  if (!username || !email || !password) {
+    return res.status(400).json({
+      message: "Missing required fields",
+      error: "MISSING_FIELDS",
+      details: "Username, email, and password are all required",
+    });
+  }
+
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({
+      message: "Invalid email format",
+      error: "INVALID_EMAIL",
+      details: "Please provide a valid email address",
+    });
+  }
+
+  // Password strength validation (at least 6 characters)
+  if (password.length < 6) {
+    return res.status(400).json({
+      message: "Password too short",
+      error: "WEAK_PASSWORD",
+      details: "Password must be at least 6 characters long",
+    });
+  }
+
+  try {
+    // Check if user already exists by email
+    const existingEmailUser = await User.findOne({ email });
+    if (existingEmailUser) {
+      return res.status(409).json({
+        message: "Email already registered",
+        error: "EMAIL_EXISTS",
+        details: "An account with this email already exists",
+      });
     }
 
-    if(!username || !email || !password) {
-        return res.status(400).json({ message: "All fields are required" });
+    // Check if username already exists
+    const existingUsernameUser = await User.findOne({ username });
+    if (existingUsernameUser) {
+      return res.status(409).json({
+        message: "Username already taken",
+        error: "USERNAME_EXISTS",
+        details: "This username is already in use",
+      });
     }
 
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+    // Create new user (password hashed automatically by the model)
+    const newUser = new User({ username, email, password });
+    await newUser.save();
 
-        const userExists = users.find(user => user.email === email);
-        if (userExists) {
-            return res.status(400).json({ message: "User already exists" });
-        }
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
+  } catch (err) {
+    console.error("Error registering user:", err);
 
-        const newUser = {
-            id: crypto.randomBytes(16).toString("hex"),
-            username,
-            email,
-            password: hashedPassword
-        }
-
-        users.push(newUser);
-        fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
-
-        res.status(201).json(
-            { message: "User registered successfully", user: { id: newUser.id, username: newUser.username, email: newUser.email } }
-        );
-    } catch(err) {
-        console.error("Error registering user:", err);
-        res.status(500).json({ message: "Internal server error" });
+    // Handle mongoose validation errors
+    if (err.name === "ValidationError") {
+      const errors = Object.values(err.errors).map((error) => error.message);
+      return res.status(400).json({
+        message: "Validation failed",
+        error: "VALIDATION_ERROR",
+        details: errors.join(", "),
+      });
     }
-})
+
+    // Handle duplicate key errors (in case unique constraint is violated)
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyPattern)[0];
+      return res.status(409).json({
+        message: `${field} already exists`,
+        error: "DUPLICATE_KEY",
+        details: `An account with this ${field} already exists`,
+      });
+    }
+
+    res.status(500).json({
+      message: "Internal server error",
+      error: "SERVER_ERROR",
+      details: "An unexpected error occurred during registration",
+    });
+  }
+});
 
 export default router;
