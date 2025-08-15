@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://carbon-footprint-api.siyabuilds.tech/api/";
+const API_URL = "https://carbon-footprint-api.siyabuilds.tech/api";
 
 export async function register({ username, email, password }) {
   try {
