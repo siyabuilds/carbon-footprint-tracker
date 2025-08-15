@@ -17,19 +17,70 @@
     <title>Carbon Footprint Tracker</title>
   </head>
   <body>
-    <header class="app-header">
-      <div class="header-content">
-        <h1><i class="fa-solid fa-leaf"></i> Footprint Logger</h1>
-        <p class="subtitle">
-          Track your daily carbon emissions and reduce your impact.
-        </p>
-      </div>
-      <button id="add-activity-btn">
-        <i class="fa-solid fa-circle-plus"></i> Add Activity
-      </button>
-    </header>
+    <!-- Auth Section (hidden by default) -->
+    <div id="auth-container" class="auth-container" style="display: none;">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1><i class="fa-solid fa-leaf"></i> Footprint Logger</h1>
+          <p>Track your daily carbon emissions and reduce your impact.</p>
+        </div>
+        
+        <div class="auth-toggle">
+          <button id="login-tab" class="auth-tab active">Login</button>
+          <button id="register-tab" class="auth-tab">Register</button>
+        </div>
 
-    <main class="main-content">
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form">
+          <div class="form-group">
+            <input type="text" id="login-identifier" placeholder="Email or Username" required />
+          </div>
+          <div class="form-group">
+            <input type="password" id="login-password" placeholder="Password" required />
+          </div>
+          <button type="submit" class="auth-btn">
+            <i class="fa-solid fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" class="auth-form" style="display: none;">
+          <div class="form-group">
+            <input type="text" id="register-username" placeholder="Username" required />
+          </div>
+          <div class="form-group">
+            <input type="email" id="register-email" placeholder="Email" required />
+          </div>
+          <div class="form-group">
+            <input type="password" id="register-password" placeholder="Password" required />
+          </div>
+          <button type="submit" class="auth-btn">
+            <i class="fa-solid fa-user-plus"></i> Register
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Main App (hidden by default) -->
+    <div id="app-container" style="display: none;">
+      <header class="app-header">
+        <div class="header-content">
+          <h1><i class="fa-solid fa-leaf"></i> Footprint Logger</h1>
+          <p class="subtitle">
+            Track your daily carbon emissions and reduce your impact.
+          </p>
+        </div>
+        <div class="header-actions">
+          <button id="logout-btn" class="logout-btn">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+          </button>
+          <button id="add-activity-btn">
+            <i class="fa-solid fa-circle-plus"></i> Add Activity
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
       <div class="dashboard">
         <div class="summary-section">
           <div id="total-emissions">
@@ -65,8 +116,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>
