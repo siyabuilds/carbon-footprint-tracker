@@ -1,6 +1,7 @@
+import Swal from Swal2;
 import axios from "axios";
 
-const API_URL = "https://carbon-footprint-api.siyabuilds.tech/api";
+const API_URL = import.meta.env.VITE_API_URL || "/api";
 
 export async function register({ username, email, password }) {
   try {
@@ -11,10 +12,9 @@ export async function register({ username, email, password }) {
     });
     return res.data;
   } catch (error) {
-    // Enhanced error handling
     if (error.response && error.response.data) {
       const { message, error: errorCode, details } = error.response.data;
-      const enhancedError = new Error(details || message);
+      const enhancedError = new Error(details || message || "Unknown error");
       enhancedError.code = errorCode;
       enhancedError.status = error.response.status;
       enhancedError.originalError = error;
@@ -25,15 +25,11 @@ export async function register({ username, email, password }) {
 }
 
 export async function login({ identifier, password }) {
-  // Determine if identifier is email or username
-  const isEmail = identifier.includes("@");
+  const isEmail = identifier.trim().includes("@");
   const payload = { password };
 
-  if (isEmail) {
-    payload.email = identifier;
-  } else {
-    payload.username = identifier;
-  }
+  if (isEmail) payload.email = identifier.trim();
+  else payload.username = identifier.trim();
 
   try {
     const res = await axios.post(`${API_URL}/login`, payload);
@@ -45,10 +41,9 @@ export async function login({ identifier, password }) {
     }
     return data;
   } catch (error) {
-    // Enhanced error handling
     if (error.response && error.response.data) {
       const { message, error: errorCode, details } = error.response.data;
-      const enhancedError = new Error(details || message);
+      const enhancedError = new Error(details || message || "Unknown error");
       enhancedError.code = errorCode;
       enhancedError.status = error.response.status;
       enhancedError.originalError = error;
