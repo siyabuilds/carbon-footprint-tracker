@@ -30,19 +30,15 @@ carbon-footprint-tracker/
 │       ├── main.js            # Main application entry point
 │       ├── storage.js         # LocalStorage management
 │       ├── style.css          # Application styling
-│       ├── ui.js              # UI rendering functions
-│       └── javascript.svg     # JavaScript icon
+│       └── ui.js              # UI rendering functions
 └── server/                # Backend application
     ├── package.json       # Backend dependencies
-    ├── data/              # Data storage
-    │   └── users.json     # User data
     ├── db/                # Database configuration
     │   └── connect.js     # Database connection
     └── src/               # Backend source code
         ├── index.js       # Server entry point
-        ├── middleware/    # Custom middleware
-        │   └── auth.js    # Authentication middleware
         ├── models/        # Data models
+        │   └── User.js    # User model for authentication
         └── routes/        # API routes
             ├── login.js   # Login endpoints
             └── register.js # Registration endpoints
