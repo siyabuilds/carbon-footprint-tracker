@@ -17,6 +17,7 @@ import {
 } from "./filter.js";
 import { renderEmissionsChart } from "./chart.js";
 import { getCurrentUser, login, register, logout, isLoggedIn } from "./auth.js";
+import Swal from "sweetalert2";
 
 let activityLogs = loadActivityLogs();
 let selectedCategory = "All";
@@ -104,7 +105,11 @@ const handleLogin = async (e) => {
       errorMessage = error.response.data.message;
     }
 
-    alert(errorMessage);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage,
+    });
   }
 };
 
@@ -139,7 +144,11 @@ const handleRegister = async (e) => {
       errorMessage = error.response.data.message;
     }
 
-    alert(errorMessage);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage,
+    });
   }
 };
 
