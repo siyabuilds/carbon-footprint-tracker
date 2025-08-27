@@ -7,28 +7,31 @@ for (const category of categoryEnum) {
   activityEnums[category] = Object.keys(activityData[category]);
 }
 
-const activitySchema = new mongoose.Schema({
-  category: {
-    type: String,
-    required: true,
-    enum: categoryEnum,
-  },
-  activity: {
-    type: String,
-    required: true,
-    validate: {
-      validator: function (val) {
-        return activityEnums[this.category]?.includes(val);
+const activitySchema = new mongoose.Schema(
+  {
+    category: {
+      type: String,
+      required: true,
+      enum: categoryEnum,
+    },
+    activity: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function (val) {
+          return activityEnums[this.category]?.includes(val);
+        },
+        message: (props) =>
+          `"${props.value}" is not a valid activity for category "${props.instance.category}"`,
       },
-      message: (props) =>
-        `"${props.value}" is not a valid activity for category "${props.instance.category}"`,
+    },
+    value: {
+      type: Number,
+      required: true,
     },
   },
-  value: {
-    type: Number,
-    required: true,
-  },
-});
+  { collection: "activities" }
+);
 
 // auto-fill `value` from activityData
 activitySchema.pre("validate", function (next) {
