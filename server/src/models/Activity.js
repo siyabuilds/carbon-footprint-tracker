@@ -9,6 +9,11 @@ for (const category of categoryEnum) {
 
 const activitySchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
