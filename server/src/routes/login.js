@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
       "carbon-footprint-tracker-secret-to-change-in-production";
     const token = jwt.sign(
       {
-        userId: user._id,
+        _id: user._id,
         email: user.email,
         username: user.username,
       },

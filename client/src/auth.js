@@ -1,4 +1,3 @@
-import Swal from "sweetalert2";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL || "/api";
@@ -69,4 +68,12 @@ export function getToken() {
 
 export function isLoggedIn() {
   return !!getToken() && !!getCurrentUser();
+}
+
+export function validateToken(token) {
+  return axios.get(`${API_URL}/validate-token`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
