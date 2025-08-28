@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDB } from "../db/connect.js";
 import router from "./routes/register.js";
 import loginRouter from "./routes/login.js";
+import activitiesRouter from "./routes/activities.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api/register", router);
 app.use("/api/login", loginRouter);
+app.use("/api/activities", activitiesRouter);
 
 connectDB();
 
