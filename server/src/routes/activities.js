@@ -61,4 +61,23 @@ activitiesRouter.delete("/:id", authenticateToken, async (req, res) => {
   }
 });
 
+// Delete all activities
+activitiesRouter.delete("/", authenticateToken, async (req, res) => {
+  const userId = req.user.id || req.user._id;
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID not found in token" });
+  }
+
+  try {
+    const result = await Activity.deleteMany({ user: userId });
+    res.json({
+      message: "All activities deleted successfully",
+      deletedCount: result.deletedCount,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting all activities" });
+  }
+});
+
 export default activitiesRouter;
