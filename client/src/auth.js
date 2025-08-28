@@ -69,3 +69,11 @@ export function getToken() {
 export function isLoggedIn() {
   return !!getToken() && !!getCurrentUser();
 }
+
+export function validateToken(token) {
+  return axios.get(`${API_URL}/validate-token`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

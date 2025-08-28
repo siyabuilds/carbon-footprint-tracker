@@ -16,7 +16,14 @@ import {
   createFilterComponent,
 } from "./filter.js";
 import { renderEmissionsChart } from "./chart.js";
-import { getCurrentUser, login, register, logout, isLoggedIn } from "./auth.js";
+import {
+  getCurrentUser,
+  login,
+  register,
+  logout,
+  isLoggedIn,
+  validateToken,
+} from "./auth.js";
 import Swal from "sweetalert2";
 
 let activityLogs = loadActivityLogs();
@@ -26,13 +33,21 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeApp();
 });
 
-const initializeApp = () => {
-  if (isLoggedIn()) {
+const initializeApp = async () => {
+  if (!isLoggedIn()) {
+    return showAuthScreen();
+  }
+
+  const token = getToken();
+  try {
+    await validateToken(token); // Check if stored token is valid 
     showMainApp();
-  } else {
+  } catch {
+    logout();
     showAuthScreen();
   }
 };
+
 
 const showAuthScreen = () => {
   document.getElementById("auth-container").style.display = "flex";
