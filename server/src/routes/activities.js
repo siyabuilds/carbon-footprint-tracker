@@ -3,7 +3,7 @@ import { Activity } from "../models/Activity";
 import { authenticateToken } from "../middleware/auth.js";
 const activitiesRouter = express.Router();
 
-// Get activities for the authenticated user
+// Get all activities
 activitiesRouter.get("/", authenticateToken, async (req, res) => {
   try {
     // Get user ID from token and use it for querying user specific activities
@@ -18,6 +18,7 @@ activitiesRouter.get("/", authenticateToken, async (req, res) => {
   }
 });
 
+// Create a new activity
 activitiesRouter.post("/", authenticateToken, async (req, res) => {
   const { category, activity } = req.body;
   const userId = req.user.id || req.user._id;
@@ -39,6 +40,7 @@ activitiesRouter.post("/", authenticateToken, async (req, res) => {
   }
 });
 
+// Delete a single activity by ID
 activitiesRouter.delete("/:id", authenticateToken, async (req, res) => {
   const userId = req.user.id || req.user._id;
   const activityId = req.params.id;
