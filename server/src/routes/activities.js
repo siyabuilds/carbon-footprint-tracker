@@ -39,4 +39,26 @@ activitiesRouter.post("/", authenticateToken, async (req, res) => {
   }
 });
 
+activitiesRouter.delete("/:id", authenticateToken, async (req, res) => {
+  const userId = req.user.id || req.user._id;
+  const activityId = req.params.id;
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID not found in token" });
+  }
+
+  try {
+    const activity = await Activity.findOneAndDelete({
+      _id: activityId,
+      user: userId,
+    });
+    if (!activity) {
+      return res.status(404).json({ message: "Activity not found" });
+    }
+    res.json({ message: "Activity deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting activity" });
+  }
+});
+
 export default activitiesRouter;
